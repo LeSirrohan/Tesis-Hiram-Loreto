@@ -20,7 +20,7 @@ var TableAdvanced = function () {
 
             // Internationalisation. For more info refer to http://datatables.net/manual/i18n
             "paging":   true,
-            "ordering": false,
+            "ordering": true,
             "info":     false,
             "searching":     true,
             "language": {
@@ -37,9 +37,14 @@ var TableAdvanced = function () {
                 "zeroRecords": "No se encontraron registros"
             },
 
-            "order": [
-                [0, 'asc']
-            ],
+            "ColumnDefs": [
+                    { 'Sortable': false, 'Targets': [3] },
+                    { "Searchable": false, "Targets": [ 3 ] },
+                    { 'Sortable': false, 'Targets': [2] },
+                    { "Searchable": false, "Targets": [ 2 ] },
+                    { "Width": "8%", "Targets": [2] },
+                    { "Width": "8%", "Targets": [3] }
+                ],
             "lengthMenu": [
                 [5,10, 15, 20, -1],
                 [5,10, 15, 20, "Todo"] // change per page values here
@@ -50,7 +55,11 @@ var TableAdvanced = function () {
             "serverSide": true,
             "ajax": {
                     "url": "../../Control/listarReportes8.php" // ajax source
-                }
+                },
+
+                "order": [
+                    [0, "desc"]
+                ] // set first column as a default sort by asc
         });
 
 

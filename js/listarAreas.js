@@ -19,7 +19,7 @@ var TableAdvanced = function () {
         "processing": false,
 
             // Internationalisation. For more info refer to http://datatables.net/manual/i18n
-            "paging":   false,
+            "paging":   true,
             "ordering": false,
             "info":     false,
             "searching":     false,

@@ -17,7 +17,7 @@
   $nombre          =$_SESSION['_NombreTecnico'];
   
   $soporte -> asignarIdTecnico($nombre);
-  $reg             =$soporte->busqueda_nombre();
+  $reg             =$soporte->busqueda_nombre($dir);
   $iTotalRecords   = $soporte->cantidad_busqueda_nombre();
   $iDisplayLength  = intval(isset($_REQUEST['length']) ? $_REQUEST['length']:NULL);
   $iDisplayLength  = $iDisplayLength < 0 ? $iTotalRecords : $iDisplayLength; 
@@ -51,6 +51,5 @@
   $records["draw"] = $sEcho;
   $records["recordsTotal"] = $iTotalRecords;
   $records["recordsFiltered"] = $iTotalRecords;
-  unset($_SESSION["_NombreTecnico"]);
   echo json_encode($records);
 ?>

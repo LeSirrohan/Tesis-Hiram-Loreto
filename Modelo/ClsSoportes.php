@@ -301,7 +301,7 @@ class ClsSoportes extends ClsConectar
 		
 		return parent::numColumnas($resultado);
 	}
-	function busqueda_nombre()
+	function busqueda_nombre($dir)
  	{
 		$sql="SELECT a.bd_solicitud_serial as num_soporte, b.bd_usuario_nombre as nombre_soporte, c.bd_area_detalle as area, bd_tiposoporte_detalle as tipo_soporte,
 		a.bd_solicitud_fecha_solicitud as fecha, a.bd_solicitud_idtecnico  as nombre_tecnico, a.bd_solicitud_observacion_solicitud as observacion

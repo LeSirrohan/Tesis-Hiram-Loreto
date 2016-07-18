@@ -20,7 +20,7 @@ var TableAdvanced = function () {
 
             // Internationalisation. For more info refer to http://datatables.net/manual/i18n
             "paging":   true,
-            "ordering": false,
+            "ordering": true,
             "info":     false,
             "searching":     true,
             "language": {

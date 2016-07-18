@@ -54,7 +54,5 @@
   $records["draw"] = $sEcho;
   $records["recordsTotal"] = $iTotalRecords;
   $records["recordsFiltered"] = $iTotalRecords;
-  unset($_SESSION["_FechaInicial"]);
-  unset($_SESSION["_FechaFinal"]);
   echo json_encode($records);
 ?>

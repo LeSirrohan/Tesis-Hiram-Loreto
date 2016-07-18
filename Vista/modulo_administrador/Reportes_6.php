@@ -137,9 +137,13 @@
     Layout.init(); // init current layout
     Demo.init(); // init demo features*/
     TableAdvanced.init();
-    
+    $.get("../../Control/enlacesAdministrador.php",function(resultado){
+      $("#enlaces").html(resultado);
+
+    });
   });
   </script>
+  
   </body>
 </html>
 
