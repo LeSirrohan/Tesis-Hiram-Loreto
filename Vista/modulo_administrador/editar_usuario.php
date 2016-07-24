@@ -67,7 +67,7 @@
 		</div>
 	  	<div class="col-md-10">
 	  		<div class="tabbable tabbable-custom boxless tabbable-reversed">
-				<div class="portlet box green-jungle">
+				<div class="portlet box blue">
 					<div class="portlet-title">
 						<div class="caption">
 							<i class="fa fa-user"></i> Editar Usuarios

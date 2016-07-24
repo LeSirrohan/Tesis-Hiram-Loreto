@@ -60,7 +60,7 @@
 
 	  	<div class="col-md-10">
 	  		<!-- BEGIN SAMPLE FORM PORTLET-->
-			<div class="portlet box blue-hoki">
+			<div class="portlet box blue">
 				<div class="portlet-title">
 					<div class="caption">
 						 <i class="fa fa-globe"> </i>Gestión de Bases de Conocmiento
@@ -74,6 +74,17 @@
 						<div class="col-md-5">
 							<select  class="form-control" name="tipo_soporte" id="tipo_soporte">								
 							</select>
+						</div>
+						
+					</div>
+					<div class="row" id="id_tecnico">
+						<div class="col-md-2">&nbsp;</div>
+						<div class="col-md-2"><label for="id_tecnico">Tecnico</label></div>
+						<div class="col-md-5">
+							<select size="1" cols="30" id="idtecnico" name="idtecnico" class="form-control">
+		                        <option value="none">Seleccione</option>
+		                       
+		                    </select>
 						</div>
 						
 					</div>
@@ -130,7 +141,7 @@
 			$("#enlaces").html(resultado);
 
 		});
-		//$("#tabla").hide();
+		$("#id_tecnico").hide();
 		listarTipoSoporte();
 		
 		function listarTipoSoporte()
@@ -143,22 +154,39 @@
 				$("#tipo_soporte").change(function()
 				{
 					mostrarTabla();
+					$.blockUI({ message: 'Cargando soportes...' });
+					$("#id_tecnico").show();
+					
+					$.get("../../Control/listarTecnico.php",function(tecnico)
+					{
+						$("#idtecnico").append(tecnico);
+						$("#idtecnico").change(function()
+						{
+							
+							$.blockUI({ message: 'Cargando tecnicos...' });
+							
+							mostrarTabla();
+						});
 
+					});
+					
 				});
 				
 			});
 		}
 		function mostrarTabla()
 		{
-			$.get("../../Control/tablaBasesConocimiento.php",function(tabla)
-					{
-						$("#tabla").empty();
-						$("#tabla").append(tabla);
-						TableAdvanced.init();
 
-						
-					});
+			$.get("../../Control/tablaBasesConocimiento.php",function(tabla)
+			{
+				$("#tabla").empty();
+				$("#tabla").append(tabla);
+				TableAdvanced.init();
+
+				
+			});
 		}
+		$(document).ajaxStop($.unblockUI);
 	});
 	</script>
   </body>

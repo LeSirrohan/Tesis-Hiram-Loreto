@@ -62,17 +62,17 @@
           <div class="caption">
              <i class="fa fa-globe"> </i>Tipos de Soporte
           </div>
-          <div class="actions">
-            <a class="btn btn-sm blue-madison"  onclick="javascript: window.location='../modulo_reportes/pdfphp/php-pgsql8.php'">
-              <i class="fa fa-plus"></i>
+          <<div class="actions">
+            <a class="btn default dark-stripe"  onclick="javascript: window.location='../modulo_reportes/pdfphp/php-pgsql8.php'">
+              <i class="fa fa-file-pdf-o"></i>
              Imprimir PDF
             </a>
-            <a class="btn btn-sm blue-madison"  onclick="javascript: window.location='../modulo_reportes/pdfphp/php-excel8.php'">
-              <i class="fa fa-plus"></i>
+            <a class="btn default dark-stripe"  onclick="javascript: window.location='../modulo_reportes/pdfphp/php-excel8.php'">
+              <i class="fa fa-file-excel-o"></i>
              Imprimir Excel
             </a>
-            <a class="btn btn-sm blue-madison"  onclick="javascript: window.location='Busqueda.php'">             
-              <i class="fa fa-plus"></i>
+            <a class="btn default dark-stripe"  onclick="javascript: window.location='Busqueda.php'">             
+              <i class="fa fa-arrow-circle-o-left"></i>
              Regresar
             </a>
           </div>

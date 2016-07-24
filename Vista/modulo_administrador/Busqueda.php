@@ -91,7 +91,7 @@ session_start();
         <div class="tab-content">
             <!-- begin Tab 0-->
             <div class="tab-pane active" id="tab_1">
-            <div class="portlet box blue-hoki">
+            <div class="portlet box blue">
               <div class="portlet-title">
                 <div class="caption">
                    <i class="fa fa-globe"> </i>Reportes
@@ -140,7 +140,7 @@ session_start();
         <form id="form1" name="form1" method="post" action="../../Control/AnalizarBusqueda.php">
 
           <div class="tab-pane" id="tab_2">
-            <div class="portlet box blue-hoki">
+            <div class="portlet box blue">
               <div class="portlet-title">
                 <div class="caption">
                    <i class="fa fa-globe"> </i>Reportes

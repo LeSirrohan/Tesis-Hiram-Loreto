@@ -59,7 +59,7 @@
 
 	  	<div class="col-md-10">
 	  		<!-- BEGIN SAMPLE FORM PORTLET-->
-			<div class="portlet box blue-hoki">
+			<div class="portlet box blue">
 				<div class="portlet-title">
 					<div class="caption">
 						 <i class="fa fa-globe"> </i>Preguntas más Frecuentes

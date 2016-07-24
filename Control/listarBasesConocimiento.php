@@ -9,10 +9,12 @@ $buscar            = isset ( $_REQUEST['search']['value'] ) ? $_REQUEST['search'
 $dir               = isset ( $_REQUEST['order'][0]['dir']) ? $_REQUEST['order'][0]['dir'] : NULL;
 $column            = isset ( $_REQUEST['order'][0]['column']) ? $_REQUEST['order'][0]['column'] : NULL;
 $tipo_soporte      = isset ( $_REQUEST['tipo_soporte']) ? $_REQUEST['tipo_soporte'] : NULL;
+$id_tecnico        = isset ( $_REQUEST['id_tecnico']) ? $_REQUEST['id_tecnico'] : NULL;
 //echo $dir." ".$column." ".$buscar, " ",$tipo_soporte;
 
 $bc                = new ClsSoportes();  
-$basesConocimiento = $bc -> asignarTipoSoporte($tipo_soporte);
+$bc -> asignarTipoSoporte($tipo_soporte);
+$bc -> asignarIdTecnico($id_tecnico);
 $basesConocimiento = $bc -> busquedaTipoSoporte();
 $TOTAL             = count($basesConocimiento); 
 

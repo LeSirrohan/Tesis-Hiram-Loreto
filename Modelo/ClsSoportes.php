@@ -416,10 +416,18 @@ class ClsSoportes extends ClsConectar
 	}
 	function busquedaTipoSoporte()
 	{
+		if ($this->tiposoporte!="") 
+		{
+			$fragmento_sql="AND bd_solicitud_tiposoporte like '%".$this->tiposoporte."%'";
+		}
+		if ($this->idtecnico!="none") 
+		{
+			$fragmento_sql.="AND bd_solicitud_idtecnico = '".$this->idtecnico."'";
+		}
 		$sql="SELECT a.bd_solicitud_serial as num_soporte, b.bd_usuario_nombre as nombre_soporte, c.bd_area_detalle as area, bd_tiposoporte_detalle as tipo_soporte,
 		a.bd_solicitud_fecha_solicitud as fecha, a.bd_solicitud_idtecnico  as nombre_tecnico, bd_solicitud_observacion as observacion
 		from sisotec_bd_solicitud as a,sisotec_bd_usuario as b, sisotec_bd_area as c, sisotec_bd_tiposoporte as d
-		where a.bd_solicitud_idusuario=b.bd_usuario_id AND b.bd_usuario_departamento= c.bd_area_idt AND d.bd_tiposoporte_idt=a.bd_solicitud_tiposoporte AND bd_solicitud_tiposoporte like '%".$this->tiposoporte."%'";
+		where a.bd_solicitud_idusuario=b.bd_usuario_id AND b.bd_usuario_departamento= c.bd_area_idt AND d.bd_tiposoporte_idt=a.bd_solicitud_tiposoporte ".$fragmento_sql;
 		$ejecutar=parent::ejecutarConsultar($sql);
 		$registros = parent::obtenerTodo($ejecutar);
 		if($registros[0]["num_soporte"])
@@ -776,7 +784,8 @@ class ClsSoportes extends ClsConectar
 		$resultado                 = parent::obtenerTodo($ejecutarConsulta);
 		return $resultado;
 	}
-	function ingresarSoporte(){
+	function ingresarSoporte()
+	{
 //ingresar por tecnicos: soportes por atender y soportes atendidos
 		$sql              ="INSERT into sisotec_bd_solicitud (bd_solicitud_idusuario,bd_solicitud_tiposoporte,bd_solicitud_observacion_solicitud,bd_solicitud_fecha_solicitud,bd_solicitud_estatus)
 		values ('".$this->idusuario."','".$this->tiposoporte."','".$this->observacion_solicitud."','".$this->fecha."','Por Atender')";	
@@ -784,7 +793,8 @@ class ClsSoportes extends ClsConectar
 		$resultado        = parent::obtenerTodo($ejecutarConsulta);
 		return $resultado;
 	}
-	function asignarTecnicoSoporte(){
+	function asignarTecnicoSoporte()
+	{
 
 		$sql              ="UPDATE sisotec_bd_solicitud 
 							SET bd_solicitud_idtecnico='".$this->idtecnico."',
@@ -795,7 +805,8 @@ class ClsSoportes extends ClsConectar
 		$resultado        = parent::obtenerTodo($ejecutarConsulta);
 		return $resultado;
 	}	
-	function cambiarEstatus(){
+	function cambiarEstatus()
+	{
 
 		$sql              ="UPDATE sisotec_bd_solicitud 
 							SET bd_solicitud_estatus='".$this->estatus."',
@@ -806,14 +817,107 @@ class ClsSoportes extends ClsConectar
 		$resultado        = parent::obtenerTodo($ejecutarConsulta);
 		return $resultado;
 	}	
-	function eliminarSoporte(){
+	function eliminarSoporte()
+	{
 
 		$sql="DELETE FROM sisotec_bd_solicitud WHERE bd_solicitud_serial  ='".$this->id."'";
 		$ejecutarConsulta = parent::ejecutarConsultar($sql);
 		$resultado        = parent::obtenerTodo($ejecutarConsulta);
 		return $resultado;
 	}
-	function modificarSoporte(){}
+	function modificarSoporte()
+	{
+
+	}
+	function tiempoSolicitud($fecha,$fechaAtencion,$estatus)
+	{
+	
+		for ($i=0;$i<strlen($fecha)-6;$i++)
+		{
+			@$fes = $fes.$fecha[$i];
+		}
+
+		if ($estatus != 'Por Atender' and $estatus != 'En Proceso')
+		{
+			for ($i=0;$i<strlen($fechaAtencion)-6;$i++)
+			{
+				$fechaAten = $fechaAten.$fechaAtencion[$i];
+			}
+			$fecha2     = preg_replace('/:[0-9][0-9][0-9]/','',$fechaAten);
+			$horaActual = strtotime($fecha2);
+		}
+		else	
+		{
+			$fecha2     = preg_replace('/:[0-9][0-9][0-9]/','',gmdate('Y-m-d H:i:s', $this->horaLocal(-4.5)));
+			$horaActual = strtotime($fecha2);
+		}
+
+		$fecha = preg_replace('/:[0-9][0-9][0-9]/','',$fes);
+		$hora  = strtotime($fecha);
+		return $this->diferenciaHoras($hora,$horaActual);
+	}
+	function horaLocal($zona_horaria = 0)
+	{
+		if ($zona_horaria > -12.1 and $zona_horaria < 12.1)
+		{
+			$hora_local = time() + ($zona_horaria * 3600);
+			return $hora_local;
+		}
+		return 'error';
+	}
+	function diferenciaHoras($hora,$horaActual) 
+	{
+		$diff = $horaActual - $hora;
+		$info = array();
+		if($diff>31556926) 
+		{
+			// Años
+			$info['años'] = ($diff - ($diff%31556926))/31556926;
+			$diff         = $diff%31556926;
+		}
+		elseif($diff>2629743) 
+		{
+			// Meses
+			$info['meses'] = ($diff - ($diff%2629743))/2629743;
+			$diff          = $diff%2629743;
+		}
+		elseif($diff>604800) 
+		{
+			// Semanas
+			$info['semanas'] = ($diff - ($diff%604800))/604800;
+			$diff            = $diff%604800;
+		}
+		elseif($diff>86400) 
+		{
+			// Dias
+			$info['dias'] = ($diff - ($diff%86400))/86400;
+			$diff         = $diff%86400;
+		}
+		elseif($diff>3600) 
+		{
+			// Horas
+			$info['horas'] = ($diff - ($diff%3600))/3600;
+			$diff          = $diff%3600;
+		}
+		elseif($diff>60) 
+		{
+			// Minutos
+			$info['minutos'] = ($diff - ($diff%60))/60;
+			$diff            = $diff%60;
+		}
+		elseif($diff>0) 
+		{
+			// Segundos
+			$info['segundos'] = $diff;
+		}
+		$f = '';
+		foreach($info as $k=>$v) 
+		{
+			if($v>0) 
+				$f .= "$v $k, ";
+		}
+		return substr($f,0,-2);
+	} 
 }
 
 ?>

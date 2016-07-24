@@ -29,15 +29,18 @@ $FINAL             = $FINAL > $TOTAL_REGISTROS ? $TOTAL_REGISTROS : $FINAL;
 
 for($i = $INICIO_LISTADO; $i < $FINAL; $i++) 
 {
-  $editar =  "<a href='verSoporte.php?id=". $soportes[$i]['bd_solicitud_serial'] ."'><i class='glyphicon glyphicon-eye-open'></i></a>";
+  $editar   =  "<a href='verSoporte.php?id=". $soportes[$i]['bd_solicitud_serial'] ."'><i class='glyphicon glyphicon-eye-open'></i></a>";
   $eliminar = "<a href='../../Control/eliminarSoporte.php?id=". $soportes[$i]['bd_solicitud_serial'] ."'><i class='glyphicon glyphicon-remove'></i></a>";
-  $id = ( $i + 1 );
+  $hora     = $soporte -> tiempoSolicitud($soportes[$i]['bd_solicitud_fecha_solicitud'],$soportes[$i]['bd_solicitud_fecha_atencion'],$soportes[$i]['bd_solicitud_estatus']);
+  //tiempoSolicitud($date,$fechaAtencion,$estatus);
+  //$hora     = "<span>".$soporte->PostgresFecha($soportes[$i]['bd_solicitud_fecha_solicitud'])."</span>";
+  $id       = ( $i + 1 );
   $registros["data"][] = array(
     $soportes[$i]['bd_solicitud_serial'],
     $soportes[$i]['bd_solicitud_idusuario'],
     $soportes[$i]['bd_solicitud_observacion_solicitud'],
     $soportes[$i]['bd_solicitud_estatus'],
-    $soporte->PostgresFecha($soportes[$i]['bd_solicitud_fecha_solicitud']),
+    $hora,
     $soportes[$i]['bd_solicitud_idtecnico'],
     $editar,
     $eliminar

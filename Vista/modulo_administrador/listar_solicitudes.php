@@ -135,15 +135,20 @@
 	<script src="../../js/demo.js" type="text/javascript"></script>
     <script src="../../js/listarSoportes.js"></script>
 	<script>
-	jQuery(document).ready(function() {       
+	$(document).ready(function() 
+	{       
 		Metronic.init(); // init metronic core components
 		Layout.init(); // init current layout
 		Demo.init(); // init demo features
+		setTimeout( 'location.reload();' , 9000);
 		TableAdvanced.init();
-		$.get("../../Control/enlacesAdministrador.php",function(resultado){
+		$.get("../../Control/enlacesAdministrador.php",function(resultado)
+		{
 			$("#enlaces").html(resultado);
 
 		});
+
+		
 	});
 	</script>
   </body>

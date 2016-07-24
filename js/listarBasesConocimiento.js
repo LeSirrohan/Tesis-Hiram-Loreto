@@ -1,8 +1,9 @@
 var TableAdvanced = function () {
 
     var initTable2 = function () {
-        var tipo_soporte= $('#tipo_soporte').val();
-        var table = $('#baseConocimientos');
+        var tipo_soporte = $('#tipo_soporte').val();
+        var id_tecnico   = $("#idtecnico").val();
+        var table        = $('#baseConocimientos');
         /* Table tools samples: https://www.datatables.net/release-datatables/extras/TableTools/ */
 
         /* Set tabletools buttons and button container */
@@ -16,7 +17,7 @@ var TableAdvanced = function () {
         });
 
         var oTable = table.dataTable({
-        "processing": true,
+        "processing": false,
 
             // Internationalisation. For more info refer to http://datatables.net/manual/i18n
             "paging":   true,
@@ -50,7 +51,7 @@ var TableAdvanced = function () {
             "serverSide": true,
             "ajax": {
                     "url": "../../Control/listarBasesConocimiento.php", // ajax source
-                    "data":  {tipo_soporte:tipo_soporte}
+                    "data":  {tipo_soporte:tipo_soporte,id_tecnico:id_tecnico}
                 }
         });
 
